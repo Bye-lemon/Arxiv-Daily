@@ -17,7 +17,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -26,6 +26,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        github_token: ${ env.GITHUB_TOKEN }
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -40,10 +42,6 @@ jobs:
         pdm run python main.py
     - name: Push daily report
       run: |
-        git config --local user.email "${{ env.GITHUB_EMAIL }}"
-        git config --local user.name "${{ env.GITHUB_NAME }}"
-        git config --local github.user "${{ env.GITHUB_NAME }}"
-        git config --local github.token  "${{ env.GITHUB_TOKEN }}"
         git add .
         git commit -m 'ci: daily auto update' || echo "nothing to commit"
         git push || echo "nothing to push"
