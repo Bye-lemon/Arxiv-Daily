@@ -11,6 +11,10 @@ on:
   schedule:
     - cron: "0 20 * * *"
 
+env:
+  GITHUB_NAME: Bye-lemon
+  GITHUB_EMAIL: liyp.dl.cn@gmail.com
+
 permissions:
   contents: read
 
