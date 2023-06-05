@@ -42,6 +42,8 @@ jobs:
         pdm run python main.py
     - name: Push daily report
       run: |
+        git config --local user.email "${{ env.GITHUB_EMAIL }}"
+        git config --local user.name "${{ env.GITHUB_NAME }}"
         git add .
         git commit -m 'ci: daily auto update' || echo "nothing to commit"
         git push || echo "nothing to push"
