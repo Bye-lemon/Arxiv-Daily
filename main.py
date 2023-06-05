@@ -7,6 +7,7 @@ from typing import Dict, Iterator, List
 
 import arxiv
 import tomli
+import translators as ts
 from jinja2 import Environment, FileSystemLoader
 
 file_loader = FileSystemLoader("templates")
@@ -37,6 +38,12 @@ def get_main_infos(result: arxiv.Result) -> Dict[str, dict]:
         primary_category=result.primary_category,
         pdf_link=result.pdf_url,
         abstract=result.summary.replace("\n", " "),
+        abstract_zh=ts.translate_text(
+            result.summary.replace("\n", " "),
+            translator="baidu",
+            from_language="en",
+            to_language="zh",
+        ),
     )
     return dict({arxiv_id: meta_datas})
 
@@ -95,6 +102,8 @@ def main():
             )
         )
 
+
+# TODO: 摘要中文翻译
 
 if __name__ == "__main__":
     main()

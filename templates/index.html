@@ -8,7 +8,8 @@
   <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
   <title>Arxiv Daily</title>
   <!-- CSS dependencies -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    type="text/css">
   <link rel="stylesheet" href="assets/wireframe.css">
 </head>
 
@@ -28,12 +29,15 @@
         <div class="col-md-12">
           <ul class="nav nav-tabs">
             {% for paper_list in paper_lists %}
-              <li class="nav-item" > <a href="" class="nav-link{% if paper_list[0] == 0 %} active{% endif %}" data-toggle="pill" data-target="#{{ paper_list[1] }}"><i class="fa fa-home"></i> {{ paper_list[1] }}</a> </li>
+            <li class="nav-item"> <a href="" class="nav-link{% if paper_list[0] == 0 %} active{% endif %}"
+                data-toggle="pill" data-target="#{{ paper_list[1] }}"><i class="fa fa-home"></i> {{ paper_list[1] }}</a>
+            </li>
             {% endfor %}
           </ul>
           <div class="tab-content mt-2">
             {% for paper_list in paper_lists %}
-            <div class="tab-pane fade{% if paper_list[0] == 0 %} active show{% endif %}" id="{{ paper_list[1] }}" role="tabpanel">
+            <div class="tab-pane fade{% if paper_list[0] == 0 %} active show{% endif %}" id="{{ paper_list[1] }}"
+              role="tabpanel">
               <div class="py-2">
                 <div class="container">
                   <div class="row">
@@ -57,10 +61,32 @@
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title">{{ paper.title }}</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
+                                    <h5 class="modal-title">{{ paper.title }}</h5> <button type="button" class="close"
+                                      data-dismiss="modal"> <span>×</span> </button>
                                   </div>
-                                  <div class="modal-body">
-                                    <p>{{ paper.abstract }}</p>
+                                  <ul class="nav nav-tabs">
+                                    <li class="nav-item"> <a href="" class="nav-link active" data-toggle="pill"
+                                        data-target="#ID_{{ paper.arxiv_id | replace('.', '_') }}_{{ paper_list[0] }}_EN"><i
+                                          class="fa fa-home"></i> EN</a> </li>
+                                    <li class="nav-item"> <a href="" class="nav-link" data-toggle="pill"
+                                        data-target="#ID_{{ paper.arxiv_id | replace('.', '_') }}_{{ paper_list[0] }}_ZH"><i
+                                          class="fa fa-home"></i> ZH</a> </li>
+                                  </ul>
+                                  <div class="tab-content mt-2">
+                                    <div class="tab-pane fade active show"
+                                      id="ID_{{ paper.arxiv_id | replace('.', '_') }}_{{ paper_list[0] }}_EN"
+                                      role="tabpanel">
+                                      <div class="modal-body">
+                                        <p>{{ paper.abstract }}</p>
+                                      </div>
+                                    </div>
+                                    <div class="tab-pane fade"
+                                      id="ID_{{ paper.arxiv_id | replace('.', '_') }}_{{ paper_list[0] }}_ZH"
+                                      role="tabpanel">
+                                      <div class="modal-body">
+                                        <p>{{ paper.abstract_zh }}</p>
+                                      </div>
+                                    </div>
                                   </div>
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
@@ -69,13 +95,16 @@
                             <tr>
                               <td>{{ paper.index }}</td>
                               <td>
-                                <a href="https://arxiv.org/abs/{{ paper.arxiv_id }}" target="_blank">{{ paper.arxiv_id }}</a>
+                                <a href="https://arxiv.org/abs/{{ paper.arxiv_id }}" target="_blank">{{ paper.arxiv_id
+                                  }}</a>
                               </td>
                               <td>{{ paper.title }}</td>
                               <td>{{ paper.first_author }}</td>
                               <td>{{ paper.submit_time }}</td>
                               <td>
-                                <a data-toggle="modal" href="#ID_{{ paper.arxiv_id | replace('.', '_') }}_{{ paper_list[0] }}" class="btn btn-primary">Show Abstract</a>
+                                <a data-toggle="modal"
+                                  href="#ID_{{ paper.arxiv_id | replace('.', '_') }}_{{ paper_list[0] }}"
+                                  class="btn btn-primary">Show Abstract</a>
                               </td>
                               <td>
                                 <a href="{{ paper.pdf_link }}" target="_blank">PDF</a>
@@ -105,10 +134,19 @@
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')"
+    style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">
+    Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block"
+      alt="Pingendo logo" height="16"></pingendo>
 </body>
 
 </html>
