@@ -48,8 +48,8 @@ jobs:
         git commit -m 'ci: daily auto update' || echo "nothing to commit"
         git push || echo "nothing to push"
 
-  # Single deploy job since we're just deploying
   deploy:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
