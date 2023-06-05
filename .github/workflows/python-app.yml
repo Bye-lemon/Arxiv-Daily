@@ -10,6 +10,7 @@ on:
     branches: [ "main" ]
   schedule:
     - cron: "0 20 * * *"
+  workflow_dispatch:
 
 env:
   GITHUB_NAME: Bye-lemon
@@ -18,16 +19,14 @@ env:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-      with:
-        github_token: ${ env.GITHUB_TOKEN }
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -38,6 +37,7 @@ jobs:
         echo "::set-output name=PY::$(python -c 'import hashlib, sys;print(hashlib.sha256(sys.version.encode()+sys.executable.encode()).hexdigest())')"
         echo "::set-output name=PIP_CACHE::$(pip cache dir)"
     - name: Cache PIP
+      id: pip-cache
       uses: actions/cache@v2
       with:
         path: ${{ steps.set_variables.outputs.PIP_CACHE }}
@@ -58,3 +58,23 @@ jobs:
         git add .
         git commit -m 'ci: daily auto update' || echo "nothing to commit"
         git push || echo "nothing to push"
+
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
