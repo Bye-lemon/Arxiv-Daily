@@ -32,7 +32,7 @@ jobs:
         pdm sync
     - name: Generate daily report
       run: |
-        python main.py
+        pdm run python main.py
     - name: Push daily report
       run: |
         git config --local user.email "${{ env.GITHUB_EMAIL }}"
