@@ -14,6 +14,7 @@ on:
 env:
   GITHUB_NAME: Bye-lemon
   GITHUB_EMAIL: liyp.dl.cn@gmail.com
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
   contents: read
