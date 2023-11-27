@@ -37,12 +37,11 @@ jobs:
         date
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install pdm
-        pdm sync
+        curl -sSf https://rye-up.com/get | bash
+        rye sync
     - name: Generate daily report
       run: |
-        pdm run python main.py
+        rye run python main.py
     - name: Push daily report
       run: |
         git config --local user.email "${{ env.GITHUB_EMAIL }}"

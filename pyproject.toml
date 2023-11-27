@@ -1,18 +1,27 @@
-
 [project]
-name = ""
-version = ""
-description = ""
-authors = [
-    {name = "Li Yingping", email = "liyp.dl.cn@gmail.com"},
-]
+name = "arxiv-daily"
+version = "0.1.0"
+description = "Add your description here"
 dependencies = [
     "arxiv>=1.4.7",
     "tomli>=2.0.1",
     "jinja2>=3.1.2",
     "ipykernel>=6.16.2",
     "translators>=5.7.0",
+    "requests>=2.31.0",
 ]
-requires-python = ">=3.7,<3.11"
-license = {text = "GPL-3"}
+readme = "README.md"
+requires-python = ">= 3.10"
 
+[build-system]
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
