@@ -58,8 +58,8 @@ def get_main_infos(result: arxiv.Result) -> Dict[str, dict]:
             from_language="en",
             to_language="zh",
         ),
-        github_code=query_github_code(result.title),
-        paper_with_code=query_paper_with_code(arxiv_id.split('v')[0] if 'v' in arxiv_id else arxiv_id),
+        github_code_link=query_github_code(result.title),
+        paper_with_code_link=query_paper_with_code(arxiv_id.split('v')[0] if 'v' in arxiv_id else arxiv_id),
     )
     return dict({arxiv_id: meta_datas})
 
