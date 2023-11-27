@@ -53,6 +53,8 @@
                               <th>Submit Date</th>
                               <th>Abstract</th>
                               <th>PDF Links</th>
+                              <th>Github Code</th>
+                              <th>Paper With Code</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -108,6 +110,16 @@
                               </td>
                               <td>
                                 <a href="{{ paper.pdf_link }}" target="_blank">PDF</a>
+                              </td>
+                              <td>
+                                {% if paper.github_code_link %}
+                                <a href="{{ paper.github_code_link }}" target="_blank">Link</a>
+                                {% endif %}
+                              </td>
+                              <td>
+                                {% if paper.paper_with_code_link %}
+                                <a href="{{ paper.paper_with_code_link }}" target="_blank">Link</a>
+                                {% endif %}
                               </td>
                             </tr>
                             {% endfor %}
