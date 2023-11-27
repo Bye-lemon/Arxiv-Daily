@@ -35,9 +35,13 @@ jobs:
     - name: Debug timezone
       run: |
         date
+    - name: Install the latest version of rye
+      uses: eifinger/setup-rye@v1
+      with:
+        enable-cache: true
+        cache-prefix: 'optional-prefix'
     - name: Install dependencies
       run: |
-        curl -sSf https://rye-up.com/get | bash
         rye sync
     - name: Generate daily report
       run: |
