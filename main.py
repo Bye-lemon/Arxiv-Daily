@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Dict, Iterator, List
 
 import arxiv
+import requests
 import tomli
 import translators as ts
 from jinja2 import Environment, FileSystemLoader
@@ -26,6 +27,19 @@ def get_authors(authors: List[arxiv.Result.Author]) -> List[str]:
 def get_first_author(authors: List[arxiv.Result.Author]) -> str:
     return authors[0].name
 
+def query_github_code(query: str) -> str:
+    results = requests.get("https://api.github.com/search/repositories", params={
+        "q": query,
+        "sort": "stars",
+        "order": "desc"
+    }).json()
+    return results["items"][0]["html_url"] if "total_count" in results and results["total_count"] > 0 else None
+
+def query_paper_with_code(query: str) -> str:
+    results = requests.get(
+        "https://arxiv.paperswithcode.com/api/v0/papers/" + query
+    ).json()
+    return results["official"]["url"] if "official" in results and results["official"] and results["official"]["url"] else None
 
 def get_main_infos(result: arxiv.Result) -> Dict[str, dict]:
     arxiv_id = result.entry_id.split("/")[-1]
@@ -44,6 +58,8 @@ def get_main_infos(result: arxiv.Result) -> Dict[str, dict]:
             from_language="en",
             to_language="zh",
         ),
+        github_code=query_github_code(result.title),
+        paper_with_code=query_paper_with_code(arxiv_id.split('v')[0] if 'v' in arxiv_id else arxiv_id),
     )
     return dict({arxiv_id: meta_datas})
 
@@ -102,8 +118,6 @@ def main():
             )
         )
 
-
-# TODO: 摘要中文翻译
 
 if __name__ == "__main__":
     main()
