@@ -5,6 +5,7 @@
 #   pre: false
 #   features: []
 #   all-features: false
+#   with-sources: false
 
 -e file:.
 arxiv==2.0.0
