@@ -9,54 +9,120 @@
 
 -e file:.
 arxiv==2.0.0
+    # via arxiv-daily
 asttokens==2.4.1
+    # via stack-data
 certifi==2023.11.17
+    # via requests
 cffi==1.16.0
+    # via cryptography
 charset-normalizer==3.3.2
+    # via requests
 comm==0.2.0
+    # via ipykernel
 cryptography==41.0.5
+    # via translators
 debugpy==1.8.0
+    # via ipykernel
 decorator==5.1.1
+    # via ipython
 dill==0.3.7
+    # via multiprocess
+    # via pathos
 exceptiongroup==1.2.0
+    # via ipython
 executing==2.0.1
+    # via stack-data
 feedparser==6.0.10
+    # via arxiv
 idna==3.6
+    # via requests
 ipykernel==6.26.0
+    # via arxiv-daily
 ipython==8.18.1
+    # via ipykernel
 jedi==0.19.1
+    # via ipython
 jinja2==3.1.2
+    # via arxiv-daily
 jupyter-client==8.6.0
+    # via ipykernel
 jupyter-core==5.5.0
+    # via ipykernel
+    # via jupyter-client
 lxml==4.9.3
+    # via translators
 markupsafe==2.1.3
+    # via jinja2
 matplotlib-inline==0.1.6
+    # via ipykernel
+    # via ipython
 multiprocess==0.70.15
+    # via pathos
 nest-asyncio==1.5.8
+    # via ipykernel
 packaging==23.2
+    # via ipykernel
 parso==0.8.3
+    # via jedi
 pathos==0.3.1
+    # via translators
 pexpect==4.9.0
+    # via ipython
 platformdirs==4.0.0
+    # via jupyter-core
 pox==0.3.3
+    # via pathos
 ppft==1.7.6.7
+    # via pathos
 prompt-toolkit==3.0.41
+    # via ipython
 psutil==5.9.6
+    # via ipykernel
 ptyprocess==0.7.0
+    # via pexpect
 pure-eval==0.2.2
+    # via stack-data
 pycparser==2.21
+    # via cffi
 pyexecjs==1.5.1
+    # via translators
 pygments==2.17.2
+    # via ipython
 python-dateutil==2.8.2
+    # via jupyter-client
 pyzmq==25.1.1
+    # via ipykernel
+    # via jupyter-client
 requests==2.31.0
+    # via arxiv
+    # via arxiv-daily
+    # via translators
 sgmllib3k==1.0.0
+    # via feedparser
 six==1.16.0
+    # via asttokens
+    # via pyexecjs
+    # via python-dateutil
 stack-data==0.6.3
+    # via ipython
 tomli==2.0.1
+    # via arxiv-daily
 tornado==6.3.3
+    # via ipykernel
+    # via jupyter-client
 tqdm==4.66.1
+    # via translators
 traitlets==5.13.0
+    # via comm
+    # via ipykernel
+    # via ipython
+    # via jupyter-client
+    # via jupyter-core
+    # via matplotlib-inline
 translators==5.8.9
+    # via arxiv-daily
 urllib3==2.1.0
+    # via requests
 wcwidth==0.2.12
+    # via prompt-toolkit
