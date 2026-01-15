@@ -39,10 +39,11 @@ jobs:
       run: |
         date
     - name: Install the latest version of rye
-      uses: eifinger/setup-rye@v1
+      uses: eifinger/setup-rye@v4
       with:
         enable-cache: true
         cache-prefix: 'optional-prefix'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Install dependencies
       run: |
         rye sync
