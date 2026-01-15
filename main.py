@@ -43,6 +43,23 @@ def query_paper_with_code(query: str) -> str:
 
 def get_main_infos(result: arxiv.Result) -> Dict[str, dict]:
     arxiv_id = result.entry_id.split("/")[-1]
+    
+    # Try multiple translators as fallback
+    abstract = result.summary.replace("\n", " ")
+    abstract_zh = ""
+    for translator in ["google", "bing", "alibaba"]:
+        try:
+            abstract_zh = ts.translate_text(
+                abstract,
+                translator=translator,
+                from_language="en",
+                to_language="zh",
+            )
+            if abstract_zh:
+                break
+        except Exception as e:
+            print(f"Translation failed with {translator}: {e}")
+    
     meta_datas = dict(
         title=result.title.replace("\n", " "),
         authors=", ".join(get_authors(result.authors)),
@@ -51,13 +68,8 @@ def get_main_infos(result: arxiv.Result) -> Dict[str, dict]:
         submit_time=result.published.date().strftime("%Y-%m-%d"),
         primary_category=result.primary_category,
         pdf_link=result.pdf_url,
-        abstract=result.summary.replace("\n", " "),
-        abstract_zh=ts.translate_text(
-            result.summary.replace("\n", " "),
-            translator="baidu",
-            from_language="en",
-            to_language="zh",
-        ),
+        abstract=abstract,
+        abstract_zh=abstract_zh,
         github_code_link=query_github_code(result.title),
         paper_with_code_link=query_paper_with_code(arxiv_id.split('v')[0] if 'v' in arxiv_id else arxiv_id),
     )
@@ -65,12 +77,13 @@ def get_main_infos(result: arxiv.Result) -> Dict[str, dict]:
 
 
 def query_arxiv(query: str, max_results: int = 50) -> Dict[str, dict]:
+    client = arxiv.Client()
     search_agent = arxiv.Search(
         query=query,
         max_results=max_results,
         sort_by=arxiv.SortCriterion.LastUpdatedDate,
     )
-    return reduce(ior, map(get_main_infos, search_agent.results()))
+    return reduce(ior, map(get_main_infos, client.results(search_agent)))
 
 
 def filter_last_day(infos: Dict[str, dict]) -> Dict[str, dict]:
